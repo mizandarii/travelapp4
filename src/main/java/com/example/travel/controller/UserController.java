@@ -3,6 +3,7 @@ package com.example.travel.controller;
 import com.example.travel.model.User;
 import com.example.travel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,19 +12,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 public class UserController {
     private final UserService userService;
+
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
     @GetMapping
     public String getAllUser(Model model) {
-        model.addAttribute("user", userService.getAllUsers());
+        model.addAttribute("user");
         return "users/list";
     }
     @GetMapping("/{id}")
     public String getUserById(@PathVariable Long id, Model model) {
         User users = userService.getUserById(id);
-        model.addAttribute("user", users);
+        model.addAttribute("user");
         return "users/details";
     }
     @GetMapping("/create")
@@ -40,6 +43,13 @@ public class UserController {
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return "redirect:/users";
+    }
+
+
+        @GetMapping("/register")
+        public String showRegisterPage() {
+            return "registration";  // Thymeleaf template file name without the extension
+        }
     }
 }
 

@@ -16,7 +16,7 @@ public class TransportService {
         return transportRepository.findAll();
     }
 
-    public Transport geTransportById(long id){
+    public Transport getTransportById(long id){
         return transportRepository.findById(id).orElse(null);
     }
 
